@@ -8,16 +8,28 @@ import (
 
 func main() {
 	type TestData struct {
-		Data []int
+		Data []int `json:"data"`
 	}
 	var entity TestData
 	data, err := ioutil.ReadFile("test.json")
-	json.Unmarshal([]byte(data), &entity)
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return
 	}
-	var result = make(map[string][]int)
-	result["data"] = entity.Data
-	fmt.Println("Contents of file:", result["data"])
+	err = json.Unmarshal(data, &entity)
+	if err != nil {
+		fmt.Println("Unmarshal error", err)
+		return
+	}
+	if err != nil {
+		fmt.Println("File reading error", err)
+		return
+	}
+	var result = make(map[int]bool)
+
+	for s := range entity.Data {
+		result[s] = true
+	}
+
+	fmt.Println("Result Map:", result)
 }
