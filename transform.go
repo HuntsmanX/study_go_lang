@@ -32,4 +32,10 @@ func main() {
 	}
 
 	fmt.Println("Result Map:", result)
+
+	newMap := make(map[int]bool, len(result))
+	for key, value := range result {
+		newMap[key] = value
+	}
+	fmt.Println("Length", newMap)
 }
